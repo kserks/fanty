@@ -1,6 +1,9 @@
 <script setup>
-//import settings from './pages/settings.vue'
-
+import { ref } from "vue";
+import { useStore } from 'vuex'
+const $store = useStore()
+//console.log($store.state.tasks.common)
+$store.state.players[0] = 'Сергей'
 
 </script>
 
@@ -8,8 +11,20 @@
 
 <div class="page">
     <p>
-      players
+      players | Роли. Мужчина женщина
     </p>
+    <div>
+      <input type="text">
+    </div>
+    <div>
+      <input type="text" >
+    </div>
+    <div>
+      <input type="text" >
+    </div>
+    <div>
+      <input type="text" >
+    </div>
 
 </div>
 

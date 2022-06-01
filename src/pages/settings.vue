@@ -1,11 +1,16 @@
 <script setup>
-//import settings from './pages/settings.vue'
+import { ref } from 'vue'
 
-const settings = [
-  1,1,1,1,1,1,11,1,1,1
 
-]
 
+
+import { useStore } from 'vuex'
+const $store = useStore()
+//console.log($store.state.tasks.common)
+console.log('Настройки формируют список вопросов. tasks')
+
+const value1 = ref(true)
+const value2 = ref(true)
 </script>
 
 <template>
@@ -15,9 +20,15 @@ const settings = [
         <button class="btn--red">Играть</button>
     </div>
     <div class="settings">
-        <div v-for="(item, index) in settings" :key="index" class="settings__item">{{item}}</div>
-
+        <el-switch v-model="value1" />
+        <el-switch
+          v-model="value2"
+          class="ml-2"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+        />
     </div>
+    <el-button type="danger" round>Danger</el-button>
 </div>
 
 

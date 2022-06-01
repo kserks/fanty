@@ -1,5 +1,4 @@
 <script setup>
-//import settings from './pages/settings.vue'
 
 
 </script>

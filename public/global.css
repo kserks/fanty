@@ -34,7 +34,7 @@ body{
 .page{
   width: 1000px;
   margin: 20px auto;
-  border-radius: 39px;
+  border-radius: 8px;
   margin-bottom: 14px;
   padding: 25px 25px 25px 20px;
   background: rgba(25, 28, 43, .9);
