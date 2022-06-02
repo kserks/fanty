@@ -8,7 +8,7 @@ import { useStore } from 'vuex'
 const $store = useStore()
 //console.log($store.state.tasks.common)
 console.log('Настройки формируют список вопросов. tasks')
-
+console.log('Настройки формируют список вопросов. tasks')
 const value1 = ref(true)
 const value2 = ref(true)
 </script>
@@ -19,6 +19,12 @@ const value2 = ref(true)
     <div class="btn-wrapper">
         <button class="btn--red">Играть</button>
     </div>
+    <P>
+      Категория 1
+      <p>
+        <input type="text">
+      </p>
+    </P>
     <div class="settings">
         <el-switch v-model="value1" />
         <el-switch

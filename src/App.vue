@@ -28,13 +28,12 @@ getTasks()
 <template>
 
   <Nav/>
-  <router-view></router-view>
-
-
+  <div class="game-wrapper">
+    <router-view></router-view>
+  </div>
 
 </template>
 
 <style scoped>
-
 
 </style>

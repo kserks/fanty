@@ -5,7 +5,7 @@
 
 <template>
 
-<nav>
+<nav class="navigation">
       <div class="nav__item">
         <router-link to="/">auth</router-link>
       </div>
@@ -32,6 +32,8 @@ nav{
   background-color: black;
   display: flex;
   padding: 20px;
+  position: absolute;
+  top: 0;
 }
 .nav__item{
   margin-right: 20px;
