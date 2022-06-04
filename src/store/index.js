@@ -6,7 +6,7 @@ const store = createStore({
   state () {
     return {
       screenID: 'Game',
-      players: ["", "", "", ""],
+      players: [],
       levels: null,
       levelIndex: 0,
       currentTasks: [

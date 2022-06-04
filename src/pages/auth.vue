@@ -1,12 +1,14 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const login = ref(null)
-const password = ref(null)
 
+const form = ref({
+  login: null,
+  password: null
+})
 const sendData = (e)=>{
   e.preventDefault()
-  console.log(login , password)
+  
 }
 
 </script>
@@ -16,20 +18,18 @@ const sendData = (e)=>{
 <div class="page">
     <div>
         <h2>Авторизация</h2>
-        <form>
-            <p class="form__item">
-              <label>Логин</label>
-              <input  type="text"  v-model="login" placeholder="login" >
-            </p>
-            <p class="form__item">
-              <label>Пароль</label>
-              <input  type="password"  v-model="password" placeholder="login" >
-            </p>
-            <p>
-             <el-button type="success" round @click="sendData">Войти</el-button>    
+        <el-form :model="form" label-width="120px">
+            <el-form-item label="Имя пользователя">
+              <el-input v-model="form.login" />
+            </el-form-item>
+            <el-form-item label="Пароль">
+              <el-input v-model="form.password" type="password" />
+            </el-form-item>
+            <el-form-item>
+               <el-button type="success" round @click="sendData">Войти</el-button>    
+            </el-form-item>
+        </el-form>
 
-            </p>
-        </form>
     </div>
 
 
@@ -39,12 +39,5 @@ const sendData = (e)=>{
 </template>
 
 <style>
-
-input[type="text"]{
-  background-color: #ccc;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: wheat;
-}
 
 </style>

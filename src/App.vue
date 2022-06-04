@@ -41,9 +41,9 @@ const components = { Auth, Players, Settings, Game}
 
 </script>
 
-<template>
+<template v-if="$store.state.levels">
 
-  <Nav/>
+  <!--<Nav/>-->
   <div class="game-wrapper">
 
       <!--<router-view></router-view>-->
