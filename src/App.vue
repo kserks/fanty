@@ -17,6 +17,7 @@ const getTasks = async ()=>{
 
 getTasks()
 
+console.log('+++TRANSITION')
 /**
  * 4 уровня
  * разные категории
