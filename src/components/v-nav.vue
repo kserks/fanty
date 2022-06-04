@@ -1,27 +1,26 @@
 <script setup>
+import { useStore } from 'vuex'
+const $store = useStore()
 
+const components = [ 'Auth', 'Players', 'Settings', 'Game' ]
+
+const handler = (id) => {
+  $store.state.screenID = id
+}
 
 </script>
 
 <template>
 
 <nav class="navigation">
-      <div class="nav__item">
-        <router-link to="/">auth</router-link>
+
+      <div class="nav__item" 
+        v-for="link in components" 
+        @click="handler(link)">
+            {{link}}
       </div>
-      <div class="nav__item">
-        <router-link to="/players">players</router-link>
-      </div>
-      <div class="nav__item">
-        <router-link to="/settings">settings</router-link>
-      </div>
-      <div class="nav__item">
-        <router-link to="/levels">levels</router-link>
-      </div>
-      <div class="nav__item">
-        <router-link to="/game">game</router-link>
-      </div>
-    </nav>
+
+</nav>
 
 </template>
 

@@ -5,13 +5,16 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
+      screenID: 'Game',
       players: ["", "", "", ""],
+      levels: null,
+      levelIndex: 0,
       currentTasks: [
           {
-            "level": 1,
-            "category": "Классический секс",
-            "task": "Станцуй для него эротический танец",
-            "img": "776fac4884221cc69681.gif"
+            "category": null,
+            "target": "C",
+            "task": "",
+            "img": ""
           }
       ],
 
