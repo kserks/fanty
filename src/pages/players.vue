@@ -51,7 +51,7 @@ const regPlayer = ()=>{
 
     </el-form>
     <div v-for="player2 in $store.state.players">
-      <img class="player" src="assets/M.png" alt="man">
+      <img class="player" src="/assets/M.png" alt="man">
       <span class="player-name">{{player2.name}}</span>
     </div>
 </div>

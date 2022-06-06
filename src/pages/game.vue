@@ -89,7 +89,7 @@ const getImg_1 = computed(()=>{
 
   </div>
   <div class="buttons-group">
-      <span></span>
+     
       <el-button :class="{disable: !(card_1&&card_2)}" type="success" round @click="nextTask">Следующее задание</el-button>    
   </div>
 
@@ -120,7 +120,7 @@ h3{
 }
 .buttons-group{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding-top: 10px;
 }
 
@@ -198,7 +198,7 @@ h3{
    font-size: 24px;
 }
 .back{
-  background-image: url('assets/card.png');
+  background-image: url('/assets/card.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 101%;

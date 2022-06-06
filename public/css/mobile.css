@@ -1,0 +1,14 @@
+@media (max-width: 900px) {
+  .page{
+    width: 100vw;
+    height: 100vh;
+    padding: 15px;
+  }
+  .game-wrapper .page .task{
+    flex-direction: column;
+    height: 85%;
+  }
+  .game-wrapper .page .buttons-group{
+    justify-content: center;
+  }
+}
