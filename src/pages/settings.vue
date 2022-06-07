@@ -1,16 +1,30 @@
 <script setup>
-import { ref } from 'vue'
-
-
-
-
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
+
 const $store = useStore()
 
-console.log($store.state.levels)
+
 
 const value1 = ref(true)
 const value2 = ref(true)
+
+let allCategories = computed(()=>{
+  return 33/* Object.values( $store.state.levels ).flat().map(task=>{
+                return task.category
+         })*/
+})
+
+/*
+let currentLevel = computed(()=>{
+  return $store.state.levels[$store.state.levelIndex]
+})
+
+*/
+setTimeout(()=>{
+
+  console.log( allCategories )
+},1000)
 
 
 </script>

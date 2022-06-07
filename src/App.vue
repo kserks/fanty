@@ -32,21 +32,15 @@ const getLevel = async (n)=>{
 getLevel()
 
 
-/**
- * 4 уровня
- * разные категории
- * мужские | женские | общие
- */
 const components = { Auth, Players, Settings, Game}
 
+console.log('save()')
 </script>
 
 <template v-if="$store.state.levels">
 
-  <!--<Nav/>-->
+  <Nav/>
   <div class="game-wrapper">
-
-      <!--<router-view></router-view>-->
 
         <component :is="components[$store.state.screenID]"></component>   
 

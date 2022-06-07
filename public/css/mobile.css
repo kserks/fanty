@@ -8,7 +8,23 @@
     flex-direction: column;
     height: 85%;
   }
+  .game-wrapper .page .task .card {
+    width: 70vw;
+    height: 70vw;
+  }
   .game-wrapper .page .buttons-group{
     justify-content: center;
   }
 }
+
+/*
+@media screen and (max-width : 1024px) {
+    …
+}
+@media screen and (max-width : 800px) {
+    …
+}
+@media screen and (max-width : 420px) {
+    …
+}
+*/

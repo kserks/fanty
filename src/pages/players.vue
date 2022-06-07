@@ -1,58 +1,82 @@
-<script setup>
-import { ref, computed } from "vue";
+<script>
+import { ref, computed, reactive } from "vue";
 import { useStore } from 'vuex'
 
-const $store = useStore()
-//console.log($store.state.tasks.common)
 
-
-let player= ref({
-  name: null,
-  gender: "M"
-})
-
-
-
-let flag = ref(false)
-let avatar = computed(()=>{
-  if(flag) {
-    player.gender = "M"
+export default {
+  setup (){
+    const store = useStore()
+    const player = reactive({
+                      name: null,
+                      gender: "M"
+                   })
+    let flag = ref(false)
+    const players = store.state.players
+    const avatar = computed(()=>{
+      return `assets/${player.gender}.png`
+    })
+    return {
+      player,
+      flag,
+      players,
+      avatar,
+      store
+    }
+  },
+  methods: {
+    addPlayer (){
+      if(this.players.length>3) return
+      if(!this.player.name) return
+      this.players.push( {...this.player} )
+      this.reset()
+    },
+    changeGender (){
+      this.flag=!this.flag
+      if(this.flag) {
+        this.player.gender = "W"
+      }
+      else{
+        this.player.gender = "M"
+      }    
+    },
+    reset (){
+      this.player.name = null
+      this.player.gender = 'M'
+    },
+    removePlayer (index){
+      this.players.splice(index, 1)
+    },
+    nextScreen (){
+      this.store.state.screenID = 'Settings'
+    }
   }
-  else{
-    player.gender = "W"
-  }
-  return `assets/${player.gender}.png`
-})
-
-const changeGender = ()=>{
-  console.log(flag)
-  console.log(avatar)
-  flag=!flag
 }
 
-const regPlayer = ()=>{
-  $store.state.players.push( {...player} )
-}
 </script>
 
 <template>
 
 <div class="page">
-
-
-
     <el-form>
-              
           <p class="add-player-form">
-            <img class="player player-reg" :src="avatar" @click="changeGender">
+            <img class="add-player-form__avatar player-reg" :src="avatar" @click="changeGender">
             <el-input v-model="player.name" />
-            <el-button type="success" @click="regPlayer">Добавить</el-button>    
+            <el-button type="success" round @click="addPlayer">Добавить</el-button>    
           </p>
-
     </el-form>
-    <div v-for="player2 in $store.state.players">
-      <img class="player" src="/assets/M.png" alt="man">
-      <span class="player-name">{{player2.name}}</span>
+    <div class="players-list">
+        <div class="player" v-for="(playerData, index) in players">
+          <p class="player__data">
+            <img class="player__avatar" :src="`/assets/${playerData.gender}.png`" alt="avatar">
+            <span class="player__name">{{playerData.name}}</span>
+          </p>
+          <span class="player__remove" @click="removePlayer(index)">
+              <el-icon><CloseBold /></el-icon>
+          </span>
+        </div>
+    </div>
+    <div class="button-wrapper">
+        <el-button type="success" round @click="nextScreen">Вперёд</el-button>
     </div>
 </div>
 
@@ -61,10 +85,16 @@ const regPlayer = ()=>{
 
 <style scoped>
 
-.player{
-  width: 40px;
 
+
+/*
+ * @add
+ */
+
+.add-player-form__avatar{
+  width: 40px;
 }
+
 .el-input{
   width: 200px;
 }
@@ -79,5 +109,59 @@ const regPlayer = ()=>{
   padding: 10px;
   border-radius: 8px;
   border: 2px solid #223;
+}
+
+
+/**
+ * player-list
+ */
+
+.players-list{
+  padding: 10px 0;
+  height: 80%
+}
+.player{
+  border: 1px dashed gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.player::last-child{
+  margin-bottom: 0;
+}
+.player__data{
+  display: flex;
+  align-items: center;
+}
+.player__avatar{
+  width: 40px;
+
+}
+.player__name{
+  padding-left: 15px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.player__remove{
+  color: pink;
+  cursor: pointer;
+
+  font-size: 24px;
+
+}
+.player__remove:hover{
+  color: brown;
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+}
+.button-wrapper button{
+  width: 200px;
 }
 </style>
