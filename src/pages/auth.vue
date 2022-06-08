@@ -34,13 +34,13 @@ export default {
       this.nextScreen()
     },
     nextScreen (){
-    this.v$.$validate() // checks all inputs
-    if (!this.v$.$error) { // if ANY fail validation
-        alert('Form successfully submitted.')
+    this.v$.$validate() 
+    if (!this.v$.$error) { 
+        if(this.form.login==="test"&&this.form.password==="test")
         this.store.state.screenID = 'Players'
     } 
     else {
-        alert('Form failed validation')
+       
     }
 
      
@@ -52,23 +52,22 @@ export default {
 
 <template>
 
-<div class="page">
-    <div>
+<div class="page auth">
+    <div class="form">
         <h3>Авторизация</h3>
-        <el-form :model="form" label-width="120px">
+        <el-form :model="form" class="form__group">
             
             <p class="form-item">
                 <el-icon><User /></el-icon>
                 <el-input v-model="form.login" :class="{invalid: v$.login.$error}" />
 
             </p>
-            
             <p class="form-item">
                 <el-icon><Lock /></el-icon>
                 <el-input v-model="form.password" type="password" :class="{invalid: v$.password.$error}" />
             </p>
             <p class="form-item send-btn">
-               <el-button type="success" round @click="sendData">Войти</el-button>    
+               <el-button :class="{disable: !(form.login&&form.password) }" type="success" round @click="sendData">Войти</el-button>    
             </p>
         </el-form>
 
@@ -82,11 +81,20 @@ export default {
 
 <style scoped>
 
-h3{
-  font-weight: bold;
-  font-size: 20px;
+.form{
+  width: 300px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  padding: 30px;
 }
-
+.auth{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form__group{
+  padding-top: 15px;
+}
 .form-item{
   display: flex;
   align-items: center;
@@ -94,14 +102,17 @@ h3{
 }
 
 .send-btn{
-  justify-content: center;
+  justify-content: flex-end;
+  padding-top: 20px;
 }
 .send-btn button{
-  width: 200px;
+ 
   font-weight: 600;
 }
 
-.invalid{
-  border: 1px solid crimson;
+.el-icon{
+  font-size: 26px;
+  margin-right: 15px;
 }
+
 </style>

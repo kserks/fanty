@@ -10,17 +10,24 @@ export default {
                       name: null,
                       gender: "M"
                    })
-    let flag = ref(false)
+
     const players = store.state.players
     const avatar = computed(()=>{
       return `assets/${player.gender}.png`
     })
+    const minPlayers = computed(()=>{
+      return (players.length>1)?true:false
+
+    })
+    const state = reactive({
+      minPlayers
+    })
     return {
       player,
-      flag,
       players,
       avatar,
-      store
+      store,
+      state
     }
   },
   methods: {
@@ -56,12 +63,13 @@ export default {
 
 <template>
 
-<div class="page">
-    <el-form>
+<div class="page players">
+    <h3>Добавьте игроков</h3>
+    <el-form class="pt20">
           <p class="add-player-form">
             <img class="add-player-form__avatar player-reg" :src="avatar" @click="changeGender">
             <el-input v-model="player.name" />
-            <el-button type="success" round @click="addPlayer">Добавить</el-button>    
+            <el-button class="add-player-form__btn" type="success" @click="addPlayer">+</el-button>    
           </p>
     </el-form>
     <div class="players-list">
@@ -76,7 +84,7 @@ export default {
         </div>
     </div>
     <div class="button-wrapper">
-        <el-button type="success" round @click="nextScreen">Вперёд</el-button>
+        <el-button :class="{disable: !state.minPlayers}" type="success" round @click="nextScreen">Вперёд</el-button>
     </div>
 </div>
 
@@ -94,10 +102,21 @@ export default {
 .add-player-form__avatar{
   width: 40px;
 }
-
+.pt20{
+  padding-top: 20px;
+}
 .el-input{
   width: 200px;
+  margin-left: 15px;
+  flex: 1 1;
 }
+
+.add-player-form__btn{
+  margin-left: 15px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
 .player-reg:hover{
   filter: brightness(120%);
   cursor: pointer;
@@ -115,13 +134,14 @@ export default {
 /**
  * player-list
  */
-
 .players-list{
   padding: 10px 0;
-  height: 80%
+  height: 70%
 }
 .player{
-  border: 1px dashed gray;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  color: var(--c-font);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -157,11 +177,6 @@ export default {
   color: brown;
 }
 
-.button-wrapper{
-  display: flex;
-  justify-content: center;
-}
-.button-wrapper button{
-  width: 200px;
-}
+
+
 </style>

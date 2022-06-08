@@ -5,7 +5,7 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      screenID: 'Settings',//'Game',
+      screenID: 'Game',
       players: [],
       levels: null,
       levelIndex: 0,

@@ -18,8 +18,11 @@ body{
   text-size-adjust: none;
 }
 
-
-
+h3{
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
 
 #app{
   height: 100vh;
@@ -74,6 +77,32 @@ body{
   opacity: 0;
 }
 
+
+.el-slider__bar{
+  background-color: rgb(19, 206, 102) !important;
+}
+.el-slider__runway{
+  background-color: var(--c-font) !important;
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.button-wrapper button{
+  width: 200px;
+}
+
 .el-input__wrapper{
   background-color: #242746 !important; 
+  box-shadow: unset  !important;
+  border: 1px solid #223  !important;
+}
+.el-input{
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+.invalid .el-input__wrapper{
+  border: 1px solid crimson  !important;
 }

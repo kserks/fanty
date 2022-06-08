@@ -39,7 +39,7 @@ console.log('save()')
 
 <template v-if="$store.state.levels">
 
-  <Nav/>
+  <!--<Nav/>-->
   <div class="game-wrapper">
 
         <component :is="components[$store.state.screenID]"></component>   

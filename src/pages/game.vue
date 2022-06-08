@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
 import Card from '../components/v-card.vue'
 
@@ -10,11 +10,14 @@ export default {
   setup (){
     const store = useStore()
     const taskIndex = ref(0)
-    const state = reactive({
-      card_1: false,
-      card_2: false
-    })
 
+    const players = store.state.players
+    const player = computed (()=>{
+      if(players.length>0){
+        return players[0]
+      }
+      return { name: 'Тест', gender: 'W'}
+    })
     /*
     const currentTask = computed( () => {
       return store.state.currentTasks[taskIndex]
@@ -41,12 +44,15 @@ export default {
       return 90
       return step*taskIndex
     })
-
-    return {
-      state,
+    const state = reactive({
+      card_1: false,
+      card_2: false,
+      player,
       progress,
-      currentFants,
-      store
+      currentFants
+    })
+    return {
+      ...toRefs(state)
     }
   },
   methods: {
@@ -61,20 +67,20 @@ export default {
 
 <template>
 
-<div class="page">
+<div class="page game">
 
-  <h3> <span>Алексей</span> </h3>
+  <h3> {{player.name}} </h3>
   <p class="progress-wrapper">
       <el-progress :percentage="progress" status="success"> <span></span></el-progress>
   </p>
   <div class="task">
 
-    <Card @click="state.card_1=true" :class="{flip: state.card_1}" :fant="currentFants[0]"/>
-    <Card @click="state.card_2=true" :class="{flip: state.card_2}" :fant="currentFants[1]"/>
+    <Card @click="card_1=true" :class="{flip: card_1}" :fant="currentFants[0]"/>
+    <Card @click="card_2=true" class="card_2" :class="{flip: card_2}" :fant="currentFants[1]"/>
   </div>
   <div class="buttons-group">
      
-      <el-button :class="{disable: !(state.card_1&&state.card_2)}" type="success" round @click="nextFant">Следующее задание</el-button>    
+      <el-button :class="{disable: !(card_1&&card_2)}" type="success" round @click="nextFant">Следующее задание</el-button>    
   </div>
 
 
@@ -89,7 +95,10 @@ export default {
   height: 80%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+.card_2{
+  margin-left: 20px;
 }
 h3{
   height: 30px;

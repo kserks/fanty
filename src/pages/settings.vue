@@ -1,44 +1,82 @@
-<script setup>
-import { ref, computed } from 'vue'
+<script>
+import { ref, computed, reactive } from 'vue'
 import { useStore } from 'vuex'
 
-const $store = useStore()
 
 
 
-const value1 = ref(true)
-const value2 = ref(true)
+export default {
+  components: {},
+  setup() {
+    const store = useStore()
+    const state = reactive({
+                    value2: true
+    })
 
-let allCategories = computed(()=>{
-  return 33/* Object.values( $store.state.levels ).flat().map(task=>{
-                return task.category
-         })*/
-})
+    /**
+     * Получаю все фанты, всех уровней
+     */
+    const allTasks = Object.values( store.state.levels ).flat()
+    /**
+     * Получаю названия категорий
+     */
+    const allCategories = allTasks.map(task=>{
+      if(task.category===null) task.category = ['Без категории']
+      return task.category  
+    }).flat()
+    /**
+     * Получаю количество Фантов в категории
+     */
+    const categoriesGroup = {}
+    allCategories.forEach(cat=>{
+      categoriesGroup[cat] = (categoriesGroup[cat] || 0) + 1;
+    })
+    const categories = reactive([])
+    for(let key in categoriesGroup){
+      const obj = {
+        name: key,
+        val: categoriesGroup[key],
+        max: categoriesGroup[key]
+      }
+      categories.push(obj)
+    }
 
-/*
-let currentLevel = computed(()=>{
-  return $store.state.levels[$store.state.levelIndex]
-})
-
-*/
-setTimeout(()=>{
-
-  console.log( allCategories )
-},1000)
-
+    return {
+      state,
+      categories,
+      store
+    }
+  },
+  methods: {
+    nextScreen (){
+      this.store.state.screenID = 'Game'
+    }
+  }
+}
 
 </script>
 
 <template>
 
-<div class="page">
+<div class="page settings">
 
+    <h3>Категории</h3>
+    <el-scrollbar height="400px"  class="category" :always="true">
+        <p v-for="(catItem, index) in categories" :key="index" class="category__item">
+              <div class="category__name">{{catItem.name}}</div>
+              <div class="category__range">
+                <span class="category__num">{{catItem.val}}</span>
+                <el-slider v-model="catItem.val" :step="1" :min="0" :max="catItem.max" :show-tooltip="false"/>
 
-    <div class="settings">
-    
-        <el-switch v-model="value2" class="ml-2" active-color="#13ce66" inactive-color="#ff4949"/>
+              </div>
+
+        </p>
+   </el-scrollbar>
+
+    <div class="button-wrapper">
+        <el-button type="danger" round @click="nextScreen">Играть</el-button>
     </div>
-    <el-button type="danger" round>Играть</el-button>
+    
 </div>
 
 
@@ -48,15 +86,53 @@ setTimeout(()=>{
 
 .settings{
   display: flex;
-  flex-wrap: wrap;
-
+  flex-direction: column;
 }
-.settings__item{
-  width: 45%;
-  min-height: 100px;
-  background-color: rgba(0,150,150,0.3);
-  margin: 10px;
-  border-radius: 20px;
-  padding: 20px;
+
+
+.category{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 10px;
+  height: 400px;
+  overflow: auto;
+}
+.category__item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 30px;
+
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  color: var(--c-font);
+  margin: 0px 20px 20px 5px;
+}
+
+.category__name{
+  width: 30%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.category__range{
+  width: 70%;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+.category__num{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.el-slider{
+  width: 88% !important;
+}
+.button-wrapper{
+  padding-top: 30px;
 }
 </style>
